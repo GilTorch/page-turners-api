@@ -6,13 +6,12 @@ exports.up = function(knex) {
 
     return knex.schema.createTable('users', function (table) {
     
-        table.uuid('id').primary();
+        table.uuid('id').defaultTo(knex.fn.uuid()).primary();
         table.string('username');
         table.string('email');
         table.string('password');
         table.enu('gender', ['MALE', 'FEMALE']);
         table.date('birthday');
-        table.integer('age');
         table.jsonb('address');
         // address_line1: Street address, including house number and street name.
         // address_line2: Additional address information (e.g., apartment number, suite number).
