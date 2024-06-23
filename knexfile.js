@@ -15,6 +15,12 @@ module.exports = {
       database: config['DB_NAME'],
       password: config['DB_PASSWORD'],
       ssl: config['DB_SSL'] ? { rejectUnauthorized: false } : false,
+    },
+    migrations: {
+      directory: './src/migrations'
+    },
+    seeds: {
+      directory: './src/seeds/dev'
     }
   },
 
