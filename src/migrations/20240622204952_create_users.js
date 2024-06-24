@@ -9,10 +9,13 @@ exports.up = function(knex) {
         table.uuid('id').defaultTo(knex.fn.uuid()).primary();
         table.string('username');
         table.string('email');
+        table.string('last_name');
+        table.string('first_name');
         table.string('password');
         table.enu('gender', ['MALE', 'FEMALE']);
         table.date('birthday');
         table.jsonb('address');
+        table.enu('status', ['ACTIVE', 'DELETED']);
         // address_line1: Street address, including house number and street name.
         // address_line2: Additional address information (e.g., apartment number, suite number).
         // city: The city name.

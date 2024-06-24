@@ -5,8 +5,10 @@
 exports.up = function(knex) {
     return knex.schema.createTable('genres', table => {
 
-        table.uuid('id').primary();
+        table.uuid('id').defaultTo(knex.fn.uuid()).primary();
         table.string('title');
+        table.string('cover');
+        table.string('status', ['ACTIVE', 'DELETED'])
 
         table.timestamp('created_at').defaultTo(knex.fn.now());
         table.timestamp('updated_at').defaultTo(knex.fn.now());
