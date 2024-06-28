@@ -1,8 +1,6 @@
 // Update with your config settings.
 const config = require('./config/db');
 
-console.log(`CONFIG`, config);
-
 
 module.exports = {
 
