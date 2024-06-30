@@ -6,6 +6,14 @@ class Users extends Model {
     static get tableName() {
       return 'users';
     }
+
+    static get modifiers() {
+        return {
+            activeOnly(builder) {
+                builder.where('status', 'ACTIVE');
+            }
+        }
+    }
   
     static get relationMappings() {
 
@@ -67,5 +75,5 @@ class Users extends Model {
     }
 }
 
-export default Users;
+module.exports = Users;
   

@@ -6,6 +6,15 @@ class Orders extends Model {
         return 'orders'
     }
 
+    static get modifiers() {
+        return {
+            activeOnly(builder) {
+                builder.where('status', 'ACTIVE');
+            }
+        }
+    }
+  
+
     static relationMappings(){
 
         const Books = require('./Books');

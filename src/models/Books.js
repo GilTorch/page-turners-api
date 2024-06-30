@@ -8,6 +8,15 @@ class Books extends Model {
         return 'books'
     }
 
+    static get modifiers() {
+        return {
+            activeOnly(builder) {
+                builder.where('status', ['ACTIVE', 'OUT_OF_STOCK']);
+            }
+        }
+    }
+  
+
 
     static async getAverageRating(bookId) {
         

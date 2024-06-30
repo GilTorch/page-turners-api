@@ -6,6 +6,15 @@ class Reviews extends Model {
         return 'reviews'
     }
 
+    static get modifiers() {
+        return {
+            activeOnly(builder) {
+                builder.where('status', 'ACTIVE');
+            }
+        }
+    }
+  
+
     static relationMappings(){
 
         const Users = require('./Users');
