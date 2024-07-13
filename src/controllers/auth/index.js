@@ -3,23 +3,47 @@ const { generateAccessToken } = require('../../utils/auth');
 const { getObjectionJSON } = require('../../utils')
 const { Users, RefreshTokens } = require('../../models');
 
-const refreshToken = (req, res) => {
-    const refreshToken = req.body.token
-    if (refreshToken == null) return res.sendStatus(401);
-    // TODO: Checkout that refresh tokens exists in `refresh_tokens` table
-    if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-        const accessToken = generateAccessToken({ name: user.name });
-        res.json({ accessToken: accessToken })
-    })
+const refreshToken = async (req, res) => {
+    try {
+        const refreshToken = req.body.token
+
+        if (refreshToken == null) return res.sendStatus(401);
+        // TODO: Checkout that refresh tokens exists in `refresh_tokens` table
+        
+        const storedRefreshToken = await RefreshTokens.query().findOne({ refresh_token: refreshToken});
+
+        if (!storedRefreshToken) return res.sendStatus(403);
+
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+            if (err) return res.sendStatus(403);
+            const accessToken = generateAccessToken({ name: user.name });
+            res.json({ accessToken: accessToken })
+        })
+    }catch(e) {
+        console.log('Error', e);
+        return res.status(500).json({ message: "Something unexpected happened"});
+    }
+   
 }
 
-const deleteRefreshToken = (req,res) => {
+const deleteRefreshToken = async (req,res) => {
 
-    // delete token in database
+    
+    try {
+        // delete token in database
 
-    return res.sendStatus(204);
+        const result = await RefreshTokens.query().findOne({ refresh_token: req.body.token }).delete();
+
+        if(result === 1){
+            return res.status(200).json({ message: "Successfully deleted refresh token "});
+        } else {
+            return res.status(200).json({ message: "Token not in database"})
+        }
+
+
+    }catch(e){
+        return res.status(500).json({ message: "Something unexpected happened" });
+    }
 
 }
 
@@ -76,19 +100,13 @@ const login = async (req, res) => {
         if(!user) return res.status(404).json({ message: 'User not found'});
 
         if(user.length <= 0) return res.sendStatus(401);
-        console.log('3', email, password);
         const parsedUser = getObjectionJSON(user);
-
-        console.log('SUER')
         const accessToken = generateAccessToken(parsedUser)
-        console.log('access token',accessToken);
         const refreshToken = jwt.sign(parsedUser, process.env.REFRESH_TOKEN_SECRET);
         //TODO: Insert refresh token in database
         await RefreshTokens.query().insert({
             refresh_token: refreshToken
         })
-        
-        console.log('5', email, password);
         req.user = user;
         res.json({ accessToken: accessToken, refreshToken: refreshToken })
 
