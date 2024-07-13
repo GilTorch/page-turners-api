@@ -1,11 +1,11 @@
+const Users = require('../../models/Users');
 
 
+const getUsers = async (req, res) => {
 
-const getUsers = (req, res) => {
+    const users = await Users.query().fromRaw('select * from users');
 
-    console.log('here')
-
-    res.json([{},{}])
+    res.json(users);
 }
 
 module.exports = {
