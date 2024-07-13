@@ -1,3 +1,4 @@
+const { authenticateToken } = require('../utils/auth');
 const {
     AuthRouter,
     UsersRouter
@@ -10,7 +11,7 @@ const router = express.Router();
 
 
 router.use('/auth', AuthRouter);
-router.use('/users', UsersRouter)
+router.use('/users', authenticateToken, UsersRouter)
 
 
 
