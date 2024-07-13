@@ -43,4 +43,4 @@ class Reviews extends Model {
 
 }
 
-export default Reviews;
+module.exports = Reviews;

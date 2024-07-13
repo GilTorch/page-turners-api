@@ -1,5 +1,5 @@
 const { Model } = require('objection');
-const Review = require('./review');
+const Review = require('./Reviews');
 
 
 class Books extends Model {
@@ -63,4 +63,4 @@ class Books extends Model {
     }
 }
 
-export default Books;
+module.exports = Books;

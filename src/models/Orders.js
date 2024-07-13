@@ -42,4 +42,4 @@ class Orders extends Model {
 
 }
 
-export default Orders;
+module.exports = Orders;

@@ -3,7 +3,7 @@ const Books = require('./Books');
 const Reviews = require('./Reviews');
 const RefreshTokens = require('./RefreshTokens');
 
-export {
+module.exports = {
     Users,
     Books,
     Reviews,
