@@ -9,6 +9,4 @@ class RefreshTokens extends Model {
 
 }
 
-export {
-    RefreshTokens
-}
+module.exports = RefreshTokens;

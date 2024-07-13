@@ -17,7 +17,12 @@ const printRoutes = (app) => {
       console.log(`${methods} ${route.path}`);
     });
   };
+
+ const getObjectionJSON = classObject => {
+  return JSON.parse(JSON.stringify(classObject))
+ }
   
   module.exports = {
-    printRoutes
+    printRoutes,
+    getObjectionJSON
   }
