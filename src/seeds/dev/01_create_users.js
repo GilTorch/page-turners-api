@@ -13,6 +13,8 @@ exports.seed = async function(knex) {
       username: 'john_doe',
       email: 'john.doe@example.com',
       password: defaultPassword,
+      first_name: 'John',
+      last_name: 'Doe',
       gender: 'MALE',
       birthday: '1990-01-01',
       address: {
@@ -22,12 +24,15 @@ exports.seed = async function(knex) {
         state: 'IL',
         postal_code: '62701',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'jane_doe',
       email: 'jane.doe@example.com',
       password: defaultPassword,
+      first_name: 'Jane',
+      last_name: 'Doe',
       gender: 'FEMALE',
       birthday: '1992-02-02',
       address: {
@@ -37,12 +42,15 @@ exports.seed = async function(knex) {
         state: 'NY',
         postal_code: '10001',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'alice_smith',
       email: 'alice.smith@example.com',
       password: defaultPassword,
+      first_name: 'Alice',
+      last_name: 'Smith',
       gender: 'FEMALE',
       birthday: '1985-03-03',
       address: {
@@ -52,12 +60,15 @@ exports.seed = async function(knex) {
         state: 'NJ',
         postal_code: '07001',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'bob_jones',
       email: 'bob.jones@example.com',
       password: defaultPassword,
+      first_name: 'Bob',
+      last_name: 'Jones',
       gender: 'MALE',
       birthday: '1988-04-04',
       address: {
@@ -67,12 +78,15 @@ exports.seed = async function(knex) {
         state: 'CA',
         postal_code: '90001',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'charlie_brown',
       email: 'charlie.brown@example.com',
       password: defaultPassword,
+      first_name: 'Charlie',
+      last_name: 'Brown',
       gender: 'MALE',
       birthday: '1995-05-05',
       address: {
@@ -82,12 +96,15 @@ exports.seed = async function(knex) {
         state: 'TX',
         postal_code: '75001',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'diana_prince',
       email: 'diana.prince@example.com',
       password: defaultPassword,
+      first_name: 'Diana',
+      last_name: 'Prince',
       gender: 'FEMALE',
       birthday: '1987-06-06',
       address: {
@@ -97,12 +114,15 @@ exports.seed = async function(knex) {
         state: 'HI',
         postal_code: '96801',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'eva_green',
       email: 'eva.green@example.com',
       password: defaultPassword,
+      first_name: 'Eva',
+      last_name: 'Green',
       gender: 'FEMALE',
       birthday: '1991-07-07',
       address: {
@@ -112,12 +132,15 @@ exports.seed = async function(knex) {
         state: 'KS',
         postal_code: '66002',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'frank_white',
       email: 'frank.white@example.com',
       password: defaultPassword,
+      first_name: 'Frank',
+      last_name: 'White',
       gender: 'MALE',
       birthday: '1980-08-08',
       address: {
@@ -127,12 +150,15 @@ exports.seed = async function(knex) {
         state: 'OH',
         postal_code: '43004',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'george_clark',
       email: 'george.clark@example.com',
       password: defaultPassword,
+      first_name: 'George',
+      last_name: 'Clark',
       gender: 'MALE',
       birthday: '1993-09-09',
       address: {
@@ -142,12 +168,15 @@ exports.seed = async function(knex) {
         state: 'FL',
         postal_code: '32003',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     },
     {
       username: 'hannah_baker',
       email: 'hannah.baker@example.com',
       password: defaultPassword,
+      first_name: 'Hannah',
+      last_name: 'Baker',
       gender: 'FEMALE',
       birthday: '1989-10-10',
       address: {
@@ -157,7 +186,8 @@ exports.seed = async function(knex) {
         state: 'CO',
         postal_code: '80014',
         country: 'USA'
-      }
+      },
+      status: 'ACTIVE'
     }
   ]);
 };
