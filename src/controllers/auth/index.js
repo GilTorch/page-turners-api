@@ -21,7 +21,7 @@ const refreshToken = async (req, res) => {
         })
     }catch(e) {
         console.log('Error', e);
-        return res.status(500).json({ message: "Something unexpected happened"});
+        return res.status(500).json({ message: new Error(e).message});
     }
    
 }
@@ -42,7 +42,7 @@ const deleteRefreshToken = async (req,res) => {
 
 
     }catch(e){
-        return res.status(500).json({ message: "Something unexpected happened" });
+        return res.status(500).json({ message: new Error(e).message });
     }
 
 }
@@ -52,8 +52,8 @@ const signup = async (req, res) => {
     try {
 
         const email = req.body.email;
-        const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
+        const first_name = req.body.first_name;
+        const last_name = req.body.last_name;
         const username = req.body.username;
         const password = req.body.password;
         const address = req.body.address;
@@ -65,24 +65,26 @@ const signup = async (req, res) => {
             password, 
             username, 
             address,
-            firstName,
-            lastName,
+            first_name,
+            last_name,
             birthday, 
-            gender,
+            gender
         }
 
-        const user = Users.query().insert({
+        const user = await Users.query().insert({
             ...payload
         })
+
+        console.log("USER", user);
 
         if(user) {
             res.status(200).json({message: 'User created successfully'})
         } else{
-            res.status(500).json({ message: 'Something unexpected happened while creating user'});
+            res.status(500).json({ message: MESSAGE.UNEXPECTED});
         }
 
     } catch(e){
-        throw new Error(e);
+        return res.status(500).json({ message: new Error(e).message });
     }
     
 
@@ -103,7 +105,6 @@ const login = async (req, res) => {
         const parsedUser = getObjectionJSON(user);
         const accessToken = generateAccessToken(parsedUser)
         const refreshToken = jwt.sign(parsedUser, process.env.REFRESH_TOKEN_SECRET);
-        //TODO: Insert refresh token in database
         await RefreshTokens.query().insert({
             refresh_token: refreshToken
         })
@@ -111,8 +112,7 @@ const login = async (req, res) => {
         res.json({ accessToken: accessToken, refreshToken: refreshToken })
 
     }catch(e){
-        console.log('Error', e);
-        res.sendStatus(401);
+        res.status(500).message(new Error(e).message);
     }
     
 
