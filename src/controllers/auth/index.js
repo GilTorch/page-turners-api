@@ -1,15 +1,16 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const { generateAccessToken } = require('../../utils/auth');
 const { getObjectionJSON } = require('../../utils')
 const { Users, RefreshTokens } = require('../../models');
+const { MESSAGE } = require('../../utils/constants');
+
 
 const refreshToken = async (req, res) => {
     try {
         const refreshToken = req.body.token
 
-        if (refreshToken == null) return res.sendStatus(401);
-        // TODO: Checkout that refresh tokens exists in `refresh_tokens` table
-        
+        if (refreshToken == null) return res.sendStatus(401);        
         const storedRefreshToken = await RefreshTokens.query().findOne({ refresh_token: refreshToken});
 
         if (!storedRefreshToken) return res.sendStatus(403);
@@ -59,10 +60,14 @@ const signup = async (req, res) => {
         const address = req.body.address;
         const birthday = req.body.birthday;
         const gender = req.body.gender;
+
+        const saltRounds = 10;
+        let hashedPassword = await bcrypt.hash(password, saltRounds);
+
         
         const payload = {
             email, 
-            password, 
+            password: hashedPassword, 
             username, 
             address,
             first_name,
@@ -75,6 +80,7 @@ const signup = async (req, res) => {
             ...payload
         })
 
+        
         console.log("USER", user);
 
         if(user) {
@@ -95,14 +101,21 @@ const login = async (req, res) => {
 
         const email = req.body.email;
         const password = req.body.password;
-        
-        const user = await Users.query().findOne({ email: email, password: password });
+
+        const user = await Users.query().findOne({ email: email });
+        const parsedUser = getObjectionJSON(user);
+
+        const isPasswordCorrect = await bcrypt.compare(password, parsedUser.password);
+
+        if(!isPasswordCorrect) {
+            return res.status(400).json({ message: 'Password is incorrect'});
+        }
 
         
         if(!user) return res.status(404).json({ message: 'User not found'});
 
         if(user.length <= 0) return res.sendStatus(401);
-        const parsedUser = getObjectionJSON(user);
+
         const accessToken = generateAccessToken(parsedUser)
         const refreshToken = jwt.sign(parsedUser, process.env.REFRESH_TOKEN_SECRET);
         await RefreshTokens.query().insert({
@@ -112,7 +125,7 @@ const login = async (req, res) => {
         res.json({ accessToken: accessToken, refreshToken: refreshToken })
 
     }catch(e){
-        res.status(500).message(new Error(e).message);
+        res.status(500).json({ message: new Error(e).message } );
     }
     
 

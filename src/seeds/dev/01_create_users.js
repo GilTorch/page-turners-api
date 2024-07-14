@@ -5,7 +5,8 @@
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
 
-  const defaultPassword = 'P@ssw0rd';
+  // P@ssw0rd
+  const defaultPassword = '$2b$10$kawA.bXb/wJT9SjBphfjxeqsjp2QeaIZck4rt/pGQHRfJhhG1x57m';
 
   await knex('users').del()
   await knex('users').insert([
