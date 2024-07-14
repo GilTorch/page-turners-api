@@ -1,4 +1,4 @@
-const { authenticateToken } = require('../utils/auth');
+const authenticateToken = require('../middlewares/authenticateToken');
 const {
     AuthRouter,
     UsersRouter
