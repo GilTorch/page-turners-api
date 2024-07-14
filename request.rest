@@ -1,11 +1,52 @@
+###
+POST http://localhost:3000/auth/signup
+Content-Type: application/json 
+
+{
+      "email": "infotorch2014@gmail.com", 
+      "username": "gtorch2018", 
+      "password": "P@ssw0rd",
+      "address":  {
+           "address_line1": "21 Groove street, apt 6",
+           "city": "Austin",
+           "state": "Texas",
+           "postal_code": "14440",
+           "country": "United States"
+       },
+       "first_name": "Gilbert",
+       "last_name": "Torchon",
+       "birthday": "07/19/2010", 
+       "gender": "MALE"
+}
+
+###
 POST http://localhost:3000/auth/login
 Content-Type: application/json 
 
 {
-  "usernameOrEmail": "",
-  "password": ""
+  "email": "john.doe@example.com",
+  "password": "P@ssw0rd"
+}
+
+###
+POST http://localhost:3000/auth/token
+Content-Type: application/json 
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA4NzA5OGM5LTMzMWEtNGY2YS05M2I4LTM0OTllMmYzODkzMyIsInVzZXJuYW1lIjoiam9obl9kb2UiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwibGFzdF9uYW1lIjpudWxsLCJmaXJzdF9uYW1lIjpudWxsLCJwYXNzd29yZCI6IlBAc3N3MHJkIiwiZ2VuZGVyIjoiTUFMRSIsImJpcnRoZGF5IjoiMTk5MC0wMS0wMVQwNDowMDowMC4wMDBaIiwiYWRkcmVzcyI6eyJjaXR5IjoiU3ByaW5nZmllbGQiLCJzdGF0ZSI6IklMIiwiY291bnRyeSI6IlVTQSIsInBvc3RhbF9jb2RlIjoiNjI3MDEiLCJhZGRyZXNzX2xpbmUxIjoiMTIzIE1haW4gU3QiLCJhZGRyZXNzX2xpbmUyIjoiQXB0IDRCIn0sIm90cCI6bnVsbCwib3RwX2V4cGlyZXNfYXQiOm51bGwsInN0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA3LTA3VDAzOjQ5OjAwLjE2MFoiLCJ1cGRhdGVkX2F0IjoiMjAyNC0wNy0wN1QwMzo0OTowMC4xNjBaIiwiaWF0IjoxNzIwODc1MTI3fQ.tXT3IwSwrHmq440DWoQPR8MH8LVvni2o_xhbldQgRbU"
+
+}
+
+
+###
+DELETE http://localhost:3000/auth/logout
+Content-Type: application/json 
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA4NzA5OGM5LTMzMWEtNGY2YS05M2I4LTM0OTllMmYzODkzMyIsInVzZXJuYW1lIjoiam9obl9kb2UiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwibGFzdF9uYW1lIjpudWxsLCJmaXJzdF9uYW1lIjpudWxsLCJwYXNzd29yZCI6IlBAc3N3MHJkIiwiZ2VuZGVyIjoiTUFMRSIsImJpcnRoZGF5IjoiMTk5MC0wMS0wMVQwNDowMDowMC4wMDBaIiwiYWRkcmVzcyI6eyJjaXR5IjoiU3ByaW5nZmllbGQiLCJzdGF0ZSI6IklMIiwiY291bnRyeSI6IlVTQSIsInBvc3RhbF9jb2RlIjoiNjI3MDEiLCJhZGRyZXNzX2xpbmUxIjoiMTIzIE1haW4gU3QiLCJhZGRyZXNzX2xpbmUyIjoiQXB0IDRCIn0sIm90cCI6bnVsbCwib3RwX2V4cGlyZXNfYXQiOm51bGwsInN0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA3LTA3VDAzOjQ5OjAwLjE2MFoiLCJ1cGRhdGVkX2F0IjoiMjAyNC0wNy0wN1QwMzo0OTowMC4xNjBaIiwiaWF0IjoxNzIwODc3Mjk4fQ.oIYKnLGV6AqDxfq9_61HBUMtGyjdUhrcwxoyYAoEBw8"
 }
 
 ### 
 GET http://localhost:3000/users
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTJkODQ2LWNmMjItNGU3ZS1iYmM1LTdmM2JhNWM0MDNjOCIsInVzZXJuYW1lIjoiam9obl9kb2UiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwibGFzdF9uYW1lIjoiRG9lIiwiZmlyc3RfbmFtZSI6IkpvaG4iLCJwYXNzd29yZCI6IlBAc3N3MHJkIiwiZ2VuZGVyIjoiTUFMRSIsImJpcnRoZGF5IjoiMTk5MC0wMS0wMVQwNDowMDowMC4wMDBaIiwiYWRkcmVzcyI6eyJjaXR5IjoiU3ByaW5nZmllbGQiLCJzdGF0ZSI6IklMIiwiY291bnRyeSI6IlVTQSIsInBvc3RhbF9jb2RlIjoiNjI3MDEiLCJhZGRyZXNzX2xpbmUxIjoiMTIzIE1haW4gU3QiLCJhZGRyZXNzX2xpbmUyIjoiQXB0IDRCIn0sIm90cCI6bnVsbCwib3RwX2V4cGlyZXNfYXQiOm51bGwsInN0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA3LTEzVDE0OjE5OjQxLjI1M1oiLCJ1cGRhdGVkX2F0IjoiMjAyNC0wNy0xM1QxNDoxOTo0MS4yNTNaIiwiaWF0IjoxNzIwODkyMTI2LCJleHAiOjE3MjA4OTMwMjZ9.6jJMmsd85xhlkd_LxIN9_KhW4eFL862qYN62qUfJeH0
