@@ -15,7 +15,7 @@ Content-Type: application/json
        },
        "first_name": "Gilbert",
        "last_name": "Torchon",
-       "birthday": "07/19/2010", 
+       "birthday": "07/19/1992", 
        "gender": "MALE"
 }
 
@@ -24,7 +24,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json 
 
 {
-  "email": "john.doe@example.com",
+  "email": "infotorch2014@gmail.com",
   "password": "P@ssw0rd"
 }
 
@@ -34,7 +34,6 @@ Content-Type: application/json
 
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA4NzA5OGM5LTMzMWEtNGY2YS05M2I4LTM0OTllMmYzODkzMyIsInVzZXJuYW1lIjoiam9obl9kb2UiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwibGFzdF9uYW1lIjpudWxsLCJmaXJzdF9uYW1lIjpudWxsLCJwYXNzd29yZCI6IlBAc3N3MHJkIiwiZ2VuZGVyIjoiTUFMRSIsImJpcnRoZGF5IjoiMTk5MC0wMS0wMVQwNDowMDowMC4wMDBaIiwiYWRkcmVzcyI6eyJjaXR5IjoiU3ByaW5nZmllbGQiLCJzdGF0ZSI6IklMIiwiY291bnRyeSI6IlVTQSIsInBvc3RhbF9jb2RlIjoiNjI3MDEiLCJhZGRyZXNzX2xpbmUxIjoiMTIzIE1haW4gU3QiLCJhZGRyZXNzX2xpbmUyIjoiQXB0IDRCIn0sIm90cCI6bnVsbCwib3RwX2V4cGlyZXNfYXQiOm51bGwsInN0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA3LTA3VDAzOjQ5OjAwLjE2MFoiLCJ1cGRhdGVkX2F0IjoiMjAyNC0wNy0wN1QwMzo0OTowMC4xNjBaIiwiaWF0IjoxNzIwODc1MTI3fQ.tXT3IwSwrHmq440DWoQPR8MH8LVvni2o_xhbldQgRbU"
-
 }
 
 
