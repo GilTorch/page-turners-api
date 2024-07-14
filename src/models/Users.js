@@ -1,4 +1,5 @@
 
+const Joi = require('joi');
 const { Model } = require('objection');
 
 
@@ -9,8 +10,13 @@ class Users extends Model {
 
     static get modifiers() {
         return {
+
             activeOnly(builder) {
                 builder.where('status', 'ACTIVE');
+            },
+
+            activeAndNotVerifiedOnly(builder) {
+                builder.where('status', 'ACTIVE').orWhere('status', 'EMAIL_NOT_VERIFIED');
             }
         }
     }
