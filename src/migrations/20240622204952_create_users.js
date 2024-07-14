@@ -7,15 +7,17 @@ exports.up = function(knex) {
     return knex.schema.createTable('users', function (table) {
     
         table.uuid('id').defaultTo(knex.fn.uuid()).primary();
-        table.string('username');
-        table.string('email');
-        table.string('last_name');
-        table.string('first_name');
-        table.string('password');
+        table.string('username').unique().notNullable(); //unique
+        table.string('email').unique().notNullable(); // unique
+        table.string('last_name').notNullable();
+        table.string('first_name').notNullable();
+        table.string('password').notNullable();
         table.enu('gender', ['MALE', 'FEMALE']);
-        table.date('birthday');
-        table.jsonb('address');
-        table.enu('status', ['ACTIVE', 'DELETED']);
+        table.date('birthday').notNullable();
+        table.jsonb('address').notNullable();
+        table.string('otp');
+        table.timestamp('otp_expires_at');
+        table.enu('status', ['ACTIVE','EMAIL_NOT_VERIFIED', 'DELETED']).defaultTo('EMAIL_NOT_VERIFIED');
         // address_line1: Street address, including house number and street name.
         // address_line2: Additional address information (e.g., apartment number, suite number).
         // city: The city name.
