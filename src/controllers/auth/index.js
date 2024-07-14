@@ -80,8 +80,6 @@ const signup = async (req, res) => {
             ...payload
         })
 
-        
-        console.log("USER", user);
 
         if(user) {
             res.status(200).json({message: 'User created successfully'})
