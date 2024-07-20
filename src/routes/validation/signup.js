@@ -33,7 +33,6 @@ const signupValidation = Joi.object({
         postal_code: Joi.string().regex(postalCodeRegex).required(), 
         country: Joi.string().valid("United States")
     })
-    // dateStr: Joi.date().format('YYYY-MM-DD').options({ convert: false }), 
 })
 
 module.exports = signupValidation;
