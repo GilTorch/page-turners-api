@@ -19,7 +19,7 @@ const refreshToken = async (req, res) => {
 
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
             if (err) return res.sendStatus(403);
-            const accessToken = generateAccessToken({ name: user.name });
+            const accessToken = generateAccessToken(user);
             res.json({ accessToken: accessToken })
         })
     }catch(e) {
@@ -62,6 +62,14 @@ const signup = async (req, res) => {
         const address = req.body.address;
         const birthday = req.body.birthday;
         const gender = req.body.gender;
+        const socialFieldName = req.body.socialFieldName;
+        const socialAccountFieldName = `${socialFieldName.toLowerCase()}AccountId`
+        const socialAccountId = req.body[socialAccountFieldName];
+
+        // set the user's social account Id
+
+
+
 
         const saltRounds = 10;
         let hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -75,13 +83,19 @@ const signup = async (req, res) => {
             first_name,
             last_name,
             birthday, 
-            gender
+            gender, 
+            [socialAccountFieldName]: socialAccountId
         }
 
-        const user = await Users.query().insert({
+        await Users.query().insert({
             ...payload
         })
 
+        const user = await Users.query().findOne({
+            email, 
+        })  
+
+        const parsedUser = getObjectionJSON(user);
 
         if(user) {
             res.status(200).json({message: 'User created successfully'})
