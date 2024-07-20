@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const { generateAccessToken } = require('../../utils/auth');
 const { getObjectionJSON } = require('../../utils')
 const { Users, RefreshTokens } = require('../../models');
 const { MESSAGE } = require('../../utils/constants');
+const sendEmail = require('../../utils/sendMail');
 
 
 const refreshToken = async (req, res) => {
@@ -130,9 +132,36 @@ const login = async (req, res) => {
 
 }
 
+
+const sendOtp = async (req, res) => {
+
+    try {
+        // generate OTP
+        const email = req.body.email;
+        const otpCode = crypto.randomBytes(2).toString('hex');
+        // update the otp field in the user table
+        // update the otp_expiration_date with a date (10mns later)
+
+        const user = await Users.query().findOne({ email: email})
+        await Users.query().findOne({ email: email}).patch({otp: otpCode, otp_expires_at: new Date(Date.now() + 10*60*1000)})
+
+        const parsedUser = getObjectionJSON(user);
+
+        const message = `Hi, ${parsedUser.first_name}. Here's your OTP Code: ${user.otp}`;
+
+        await sendEmail({ to: user.email, text: message });
+
+        return res.status(200).json({ message: `OTP code sent to ${email} `})
+    } catch(e) {
+        return res.status(500).json({ message: new Error(e).message })
+    }
+
+}
+
 module.exports = {
     refreshToken,
     deleteRefreshToken,
     login,
-    signup
+    signup,
+    sendOtp
 }
