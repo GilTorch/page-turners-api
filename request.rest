@@ -25,7 +25,7 @@ Content-Type: application/json
 
 {
   "email": "infotorch2014@gmail.com",
-  "password": "P@ssw0rd"
+  "password": "P@ssw0rd1"
 }
 
 ###
@@ -43,6 +43,24 @@ Content-Type: application/json
 
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA4NzA5OGM5LTMzMWEtNGY2YS05M2I4LTM0OTllMmYzODkzMyIsInVzZXJuYW1lIjoiam9obl9kb2UiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwibGFzdF9uYW1lIjpudWxsLCJmaXJzdF9uYW1lIjpudWxsLCJwYXNzd29yZCI6IlBAc3N3MHJkIiwiZ2VuZGVyIjoiTUFMRSIsImJpcnRoZGF5IjoiMTk5MC0wMS0wMVQwNDowMDowMC4wMDBaIiwiYWRkcmVzcyI6eyJjaXR5IjoiU3ByaW5nZmllbGQiLCJzdGF0ZSI6IklMIiwiY291bnRyeSI6IlVTQSIsInBvc3RhbF9jb2RlIjoiNjI3MDEiLCJhZGRyZXNzX2xpbmUxIjoiMTIzIE1haW4gU3QiLCJhZGRyZXNzX2xpbmUyIjoiQXB0IDRCIn0sIm90cCI6bnVsbCwib3RwX2V4cGlyZXNfYXQiOm51bGwsInN0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA3LTA3VDAzOjQ5OjAwLjE2MFoiLCJ1cGRhdGVkX2F0IjoiMjAyNC0wNy0wN1QwMzo0OTowMC4xNjBaIiwiaWF0IjoxNzIwODc3Mjk4fQ.oIYKnLGV6AqDxfq9_61HBUMtGyjdUhrcwxoyYAoEBw8"
+}
+
+### 
+POST http://localhost:3000/auth/send-otp
+Content-Type: application/json 
+
+{
+  "email": "infotorch2014@gmail.com"
+}
+
+### 
+POST http://localhost:3000/auth/verify-otp 
+Content-Type: application/json 
+
+{
+  "email": "infotorch2014@gmail.com",
+  "password": "P@ssw0rd1", 
+  "otp": "03b1"
 }
 
 ### 

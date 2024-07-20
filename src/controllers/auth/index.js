@@ -147,7 +147,7 @@ const sendOtp = async (req, res) => {
 
         const parsedUser = getObjectionJSON(user);
 
-        const message = `Hi, ${parsedUser.first_name}. Here's your OTP Code: ${user.otp}`;
+        const message = `Hi, ${parsedUser.first_name}. Here's your OTP Code: ${otpCode}`;
 
         await sendEmail({ to: user.email, text: message });
 
@@ -158,10 +158,48 @@ const sendOtp = async (req, res) => {
 
 }
 
+const verifyOtp = async (req, res) => {
+
+    try { 
+
+        const otp = req.body.otp;
+        const email = req.body.email;
+        const password = req.body.password;
+    
+        const user = await Users.query().findOne({ email: email });
+
+        console.log("USER", user);
+    
+        const parsedUser = getObjectionJSON(user);
+    
+        if(otp !== parsedUser.otp) {
+            return res.status(400).json({ message: "OTP Code is incorrect"})
+        }else {
+            const currentDate = new Date();
+            if(currentDate < new Date(parsedUser.otp_expires_at)) {
+                const encryptedPassword = await bcrypt.hash(password, 10);
+                await Users.query().findOne({ email: email }).patch({ password: encryptedPassword })
+                return res.status(200).json({ message: "Password modified successfully"});
+            }else {
+                return res.status(400).json({ message: "OTP Code has expired. Please, try getting another one."})
+            }
+        }
+
+    }catch(e){
+
+        res.status(500).json({ message: new Error(e).message })
+
+    }
+
+
+
+}
+
 module.exports = {
     refreshToken,
     deleteRefreshToken,
     login,
     signup,
-    sendOtp
+    sendOtp, 
+    verifyOtp
 }
