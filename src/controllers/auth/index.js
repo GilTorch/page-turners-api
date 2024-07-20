@@ -167,8 +167,6 @@ const verifyOtp = async (req, res) => {
         const password = req.body.password;
     
         const user = await Users.query().findOne({ email: email });
-
-        console.log("USER", user);
     
         const parsedUser = getObjectionJSON(user);
     
