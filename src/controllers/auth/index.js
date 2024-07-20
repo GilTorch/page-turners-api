@@ -62,9 +62,9 @@ const signup = async (req, res) => {
         const address = req.body.address;
         const birthday = req.body.birthday;
         const gender = req.body.gender;
-        const socialFieldName = req.body.socialFieldName;
-        const socialAccountFieldName = `${socialFieldName.toLowerCase()}AccountId`
-        const socialAccountId = req.body[socialAccountFieldName];
+        const socialFieldName = req.body.social_account_field_name;
+        const socialAccountFieldName = req.body.social_account_field_name ?  `${socialFieldName.toLowerCase()}AccountId` : undefined
+        const socialAccountId = socialAccountFieldName ?  req.body[socialAccountFieldName] : undefined;
 
         // set the user's social account Id
 
@@ -98,7 +98,7 @@ const signup = async (req, res) => {
         const parsedUser = getObjectionJSON(user);
 
         if(user) {
-            res.status(200).json({message: 'User created successfully'})
+            res.status(200).json({message: 'User created successfully', access_token: generateAccessToken(parsedUser)})
         } else{
             res.status(500).json({ message: MESSAGE.UNEXPECTED});
         }
@@ -190,7 +190,7 @@ const verifyOtp = async (req, res) => {
             const currentDate = new Date();
             if(currentDate < new Date(parsedUser.otp_expires_at)) {
                 const encryptedPassword = await bcrypt.hash(password, 10);
-                await Users.query().findOne({ email: email }).patch({ password: encryptedPassword })
+                await Users.query().findOne({ email: email }).patch({ password: encryptedPassword, otp: null, otp_expires_at: null, status: 'ACTIVE' })
                 return res.status(200).json({ message: "Password modified successfully"});
             }else {
                 return res.status(400).json({ message: "OTP Code has expired. Please, try getting another one."})
